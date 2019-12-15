@@ -23,44 +23,44 @@ function App() {
 
   return (
     <div className="container">
-      <ScoreBoard className="scoreboard" homeScore={homeScore} awayScore={awayScore} />
-      <section className="buttons">
+      <ScoreBoard className="scoreboard" topRowClassName="topRow" homeScore={homeScore} awayScore={awayScore} />
+      <Buttons className="buttons" buttonGroups={[ 
         <ButtonGroup className="homeButtons" buttons={[
           <ScoreUpdater className="homeButtons__touchdown" text="Home Touchdown" onUpdateScore={() => {increaseScore('home', 7)}} />,
           <ScoreUpdater className="homeButtons__fieldGoal" text="Home Field Goal" onUpdateScore={() => {increaseScore('home', 3)}} />
-        ]} />
+        ]} />,
 
         <ButtonGroup className="homeButtons" buttons={[
           <ScoreUpdater className="awayButtons__touchdown" text="Away Touchdown" onUpdateScore={() => {increaseScore('away', 7)}} />,
           <ScoreUpdater className="awayButtons__fieldGoal" text="Away Field Goal" onUpdateScore={() => {increaseScore('away', 3)}} />
         ]} />
-      </section>
+      ]} />
     </div>
   );
 }
 
 function ScoreBoard(props) {
-  const {homeScore, awayScore, className} = props;
+  const {homeScore, awayScore, className, topRowClassName} = props;
 
   return (
     <section className={className}>
-      <TopRow homeScore={homeScore} awayScore={awayScore} />
+      <TopRow className={topRowClassName} homeScore={homeScore} awayScore={awayScore} />
       <BottomRow />
     </section>
   );
 }
 
-// <Buttons className="buttons" />
 function Buttons(props) {
-  const {className, childClassName} = props;
+  const {className, buttonGroups} = props;
   return (
     <section className={className}>
-      <ButtonGroup className={childClassName} />
+      {
+        buttonGroups.map(buttonGroup => buttonGroup)
+      }
     </section>
   );
 }
 
-// <ButtonGroup className="" />
 function ButtonGroup(props) {
   const {className, buttons} = props;
   console.log(buttons)
