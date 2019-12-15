@@ -23,7 +23,11 @@ function App() {
 
   return (
     <div className="container">
-      <ScoreBoard className="scoreboard" topRowClassName="topRow" homeScore={homeScore} awayScore={awayScore} />
+      <ScoreBoard className="scoreboard" topRowClassName="topRow" homeScore={homeScore} awayScore={awayScore} topElements={[
+        <ScoreReporter className="home" headingClass="home__name" team="Lions" scoreClass="home__score" score={homeScore} />,
+        <Timer className="timer" time="00:03" />,
+        <ScoreReporter className="away" headingClass="away__name" team="Tigers" scoreClass="away__score" score={awayScore} />
+      ]} />
       <Buttons className="buttons" buttonGroups={[ 
         <ButtonGroup className="homeButtons" buttons={[
           <ScoreUpdater className="homeButtons__touchdown" text="Home Touchdown" onUpdateScore={() => {increaseScore('home', 7)}} />,
@@ -40,11 +44,11 @@ function App() {
 }
 
 function ScoreBoard(props) {
-  const {homeScore, awayScore, className, topRowClassName} = props;
+  const {homeScore, awayScore, className, topRowClassName, topElements} = props;
 
   return (
     <section className={className}>
-      <TopRow className={topRowClassName} homeScore={homeScore} awayScore={awayScore} />
+      <TopRow className={topRowClassName} homeScore={homeScore} awayScore={awayScore} topContent={topElements} />
       <BottomRow />
     </section>
   );
@@ -74,12 +78,12 @@ function ButtonGroup(props) {
 }
 
 function TopRow(props) {
-  const {className, homeScore, awayScore} = props;
+  const {className, topContent} = props;
   return (
     <div className={className}>
-      <ScoreReporter className="home" headingClass="home__name" team="Lions" scoreClass="home__score" score={homeScore} />
-      <Timer className="timer" time="00:03" />
-      <ScoreReporter className="away" headingClass="away__name" team="Tigers" scoreClass="away__score" score={awayScore} />
+      {
+        topContent.map(content => content)
+      }
     </div>
   );
 }
