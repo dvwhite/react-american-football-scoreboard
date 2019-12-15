@@ -23,22 +23,30 @@ function App() {
 
   return (
     <div className="container">
-      <section className="scoreboard">
-        <TopRow homeScore={homeScore} awayScore={awayScore}/>
-        <BottomRow />
-      </section>
+      <ScoreBoard homeScore={homeScore} awayScore={awayScore} />
       <section className="buttons">
         <div className="homeButtons">
           {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
-          <button className="homeButtons__touchdown" onClick={() => {increaseScore('home', 7)}}>Home Touchdown</button>
-          <button className="homeButtons__fieldGoal" onClick={() => {increaseScore('home', 3)}}>Home Field Goal</button>
+          <ScoreUpdater className="homeButtons__touchdown" text="Home Touchdown" onUpdateScore={() => {increaseScore('home', 7)}} />
+          <ScoreUpdater className="homeButtons__fieldGoal" text="Home Field Goal" onUpdateScore={() => {increaseScore('home', 3)}} />
         </div>
         <div className="awayButtons">
-          <button className="awayButtons__touchdown" onClick={() => {increaseScore('away', 7)}}>Away Touchdown</button>
-          <button className="awayButtons__fieldGoal" onClick={() => {increaseScore('away', 3)}}>Away Field Goal</button>
+          <ScoreUpdater className="awayButtons__touchdown" text="Away Touchdown" onUpdateScore={() => {increaseScore('away', 7)}} />
+          <ScoreUpdater className="awayButtons__fieldGoal" text="Away Field Goal" onUpdateScore={() => {increaseScore('away', 3)}} />
         </div>
       </section>
     </div>
+  );
+}
+
+function ScoreBoard(props) {
+  const {homeScore, awayScore} = props;
+
+  return (
+    <section className="scoreboard">
+    <TopRow homeScore={homeScore} awayScore={awayScore}/>
+    <BottomRow />
+    </section>
   );
 }
 
@@ -56,6 +64,13 @@ function TopRow(props) {
         <div className="away__score">{awayScore}</div>
       </div>
     </div>
+  );
+}
+
+function ScoreUpdater(props) {
+  const {className, onUpdateScore, text} = props;
+  return (
+    <button className={className} onClick={onUpdateScore}>{text}</button>
   );
 }
 
