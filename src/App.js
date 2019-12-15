@@ -23,30 +23,53 @@ function App() {
 
   return (
     <div className="container">
-      <ScoreBoard homeScore={homeScore} awayScore={awayScore} />
+      <ScoreBoard className="scoreboard" homeScore={homeScore} awayScore={awayScore} />
       <section className="buttons">
-        <div className="homeButtons">
-          {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
-          <ScoreUpdater className="homeButtons__touchdown" text="Home Touchdown" onUpdateScore={() => {increaseScore('home', 7)}} />
+        <ButtonGroup className="homeButtons" buttons={[
+          <ScoreUpdater className="homeButtons__touchdown" text="Home Touchdown" onUpdateScore={() => {increaseScore('home', 7)}} />,
           <ScoreUpdater className="homeButtons__fieldGoal" text="Home Field Goal" onUpdateScore={() => {increaseScore('home', 3)}} />
-        </div>
-        <div className="awayButtons">
-          <ScoreUpdater className="awayButtons__touchdown" text="Away Touchdown" onUpdateScore={() => {increaseScore('away', 7)}} />
+        ]} />
+
+        <ButtonGroup className="homeButtons" buttons={[
+          <ScoreUpdater className="awayButtons__touchdown" text="Away Touchdown" onUpdateScore={() => {increaseScore('away', 7)}} />,
           <ScoreUpdater className="awayButtons__fieldGoal" text="Away Field Goal" onUpdateScore={() => {increaseScore('away', 3)}} />
-        </div>
+        ]} />
       </section>
     </div>
   );
 }
 
 function ScoreBoard(props) {
-  const {homeScore, awayScore} = props;
+  const {homeScore, awayScore, className} = props;
 
   return (
-    <section className="scoreboard">
-    <TopRow homeScore={homeScore} awayScore={awayScore}/>
-    <BottomRow />
+    <section className={className}>
+      <TopRow homeScore={homeScore} awayScore={awayScore} />
+      <BottomRow />
     </section>
+  );
+}
+
+// <Buttons className="buttons" />
+function Buttons(props) {
+  const {className, childClassName} = props;
+  return (
+    <section className={className}>
+      <ButtonGroup className={childClassName} />
+    </section>
+  );
+}
+
+// <ButtonGroup className="" />
+function ButtonGroup(props) {
+  const {className, buttons} = props;
+  console.log(buttons)
+  return (
+    <div className={className}>
+      {
+        buttons.map(button => button)
+      }
+    </div>
   );
 }
 
