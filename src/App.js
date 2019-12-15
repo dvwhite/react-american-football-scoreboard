@@ -74,18 +74,22 @@ function ButtonGroup(props) {
 }
 
 function TopRow(props) {
-  const {homeScore, awayScore} = props;
+  const {className, homeScore, awayScore} = props;
   return (
-    <div className="topRow">
-      <div className="home">
-        <h2 className="home__name">Lions</h2>
-        <div className="home__score">{homeScore}</div>
-      </div>
-      <div className="timer">00:03</div>
-      <div className="away">
-        <h2 className="away__name">Tigers</h2>
-        <div className="away__score">{awayScore}</div>
-      </div>
+    <div className={className}>
+      <ScoreReporter className="home" headingClass="home__name" team="Lions" scoreClass="home__score" score={homeScore} />
+      <Timer className="timer" time="00:03" />
+      <ScoreReporter className="away" headingClass="away__name" team="Tigers" scoreClass="away__score" score={awayScore} />
+    </div>
+  );
+}
+
+function ScoreReporter(props) {
+  const {className, headingClass, team, scoreClass, score} = props;
+  return (
+    <div className={className}>
+      <h2 className={headingClass}>{team}</h2>
+      <div className={scoreClass}>{score}</div>
     </div>
   );
 }
@@ -94,6 +98,13 @@ function ScoreUpdater(props) {
   const {className, onUpdateScore, text} = props;
   return (
     <button className={className} onClick={onUpdateScore}>{text}</button>
+  );
+}
+
+function Timer(props) {
+  const {className, time} = props;
+  return (
+    <div className={className}>{time}</div>
   );
 }
 
