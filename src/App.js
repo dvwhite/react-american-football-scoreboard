@@ -26,6 +26,7 @@ function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
+  const [quarterNum, setQuarterNum] = useState(4);
 
   const increaseScore = (team, amount) => {
     switch(team) {
@@ -130,7 +131,6 @@ function Timer(props) {
   const [seconds, setSeconds] = useState(parseTime(time)[0]);
   const [minutes, setMinutes] = useState(parseTime(time)[1]);
   const [timeToDisplay, setTimeToDisplay] = useState(time);
-  const timerStyle = {width: '250px'};
  
   useEffect(() => {
     const interval = setInterval(() => {
@@ -155,7 +155,7 @@ function Timer(props) {
   }, [seconds, minutes]);
 
   return (
-    <div className={className} style={timerStyle}>{timeToDisplay}</div>
+    <div className={className}>{timeToDisplay}</div>
   );
 }
 

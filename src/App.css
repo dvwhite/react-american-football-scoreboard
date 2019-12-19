@@ -71,6 +71,7 @@
   background-color: var(--black);
   border: 2px solid white;
   border-radius: 6px;
+  width: 250px;
 }
 
 .bottomRow {
