@@ -44,19 +44,19 @@ function App() {
   return (
     <div className="container">
       <ScoreBoard className="scoreboard" topRowClassName="topRow" homeScore={homeScore} awayScore={awayScore} topElements={[
-        <ScoreReporter className="home" headingClass="home__name" team="Lions" scoreClass="home__score" score={homeScore} />,
-        <Timer className="timer" time="11:31" />,
-        <ScoreReporter className="away" headingClass="away__name" team="Tigers" scoreClass="away__score" score={awayScore} />
+        <ScoreReporter key={0} className="home" headingClass="home__name" team="Lions" scoreClass="home__score" score={homeScore} />,
+        <Timer key={1} className="timer" time="1:31" />,
+        <ScoreReporter key={2} className="away" headingClass="away__name" team="Tigers" scoreClass="away__score" score={awayScore} />
       ]} />
       <Buttons className="buttons" buttonGroups={[ 
-        <ButtonGroup className="homeButtons" buttons={[
-          <ScoreUpdater className="homeButtons__touchdown" text="Home Touchdown" onUpdateScore={() => {increaseScore('home', 7)}} />,
-          <ScoreUpdater className="homeButtons__fieldGoal" text="Home Field Goal" onUpdateScore={() => {increaseScore('home', 3)}} />
+        <ButtonGroup key={0} className="homeButtons" buttons={[
+          <ScoreUpdater key={0} className="homeButtons__touchdown" text="Home Touchdown" onUpdateScore={() => {increaseScore('home', 7)}} />,
+          <ScoreUpdater key={1} className="homeButtons__fieldGoal" text="Home Field Goal" onUpdateScore={() => {increaseScore('home', 3)}} />
         ]} />,
 
-        <ButtonGroup className="homeButtons" buttons={[
-          <ScoreUpdater className="awayButtons__touchdown" text="Away Touchdown" onUpdateScore={() => {increaseScore('away', 7)}} />,
-          <ScoreUpdater className="awayButtons__fieldGoal" text="Away Field Goal" onUpdateScore={() => {increaseScore('away', 3)}} />
+        <ButtonGroup key={1} className="homeButtons" buttons={[
+          <ScoreUpdater key={0} className="awayButtons__touchdown" text="Away Touchdown" onUpdateScore={() => {increaseScore('away', 7)}} />,
+          <ScoreUpdater key={1} className="awayButtons__fieldGoal" text="Away Field Goal" onUpdateScore={() => {increaseScore('away', 3)}} />
         ]} />
       ]} />
     </div>
