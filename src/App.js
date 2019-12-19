@@ -3,6 +3,24 @@ import React, {useState, useEffect} from "react";
 import "./App.css";
 import BottomRow from "./BottomRow";
 
+/*
+* Parse at time string into a two element array of minutes, seconds
+* @param {string} timeStr: The time to parse
+* @returns {Array} timeArr: The array of integers after parsing
+*/
+function parseTime(timeStr) {
+  const colonPos = timeStr.indexOf(':');
+  let minutes = 0;
+  let seconds = 0;
+
+  if (colonPos !== -1) {
+    minutes = parseInt(timeStr.substring(0, colonPos));
+    seconds = parseInt(timeStr.substring(colonPos + 1, timeStr.length + 1));
+  }
+
+  return [seconds, minutes];
+}
+
 // App has been refactored to be as atomic as possible as per stretch goals
 function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
@@ -26,7 +44,7 @@ function App() {
     <div className="container">
       <ScoreBoard className="scoreboard" topRowClassName="topRow" homeScore={homeScore} awayScore={awayScore} topElements={[
         <ScoreReporter className="home" headingClass="home__name" team="Lions" scoreClass="home__score" score={homeScore} />,
-        <Timer className="timer" time="1:01" />,
+        <Timer className="timer" time="11:31" />,
         <ScoreReporter className="away" headingClass="away__name" team="Tigers" scoreClass="away__score" score={awayScore} />
       ]} />
       <Buttons className="buttons" buttonGroups={[ 
@@ -107,30 +125,12 @@ function ScoreUpdater(props) {
 }
 
 // Stretch goal to add a functioning timer
-
-/*
-* Parse at time string into a two element array of minutes, seconds
-* @param {string} timeStr: The time to parse
-* @returns {Array} timeArr: The array of integers after parsing
-*/
-function parseTime(timeStr) {
-  const colonPos = timeStr.indexOf(':');
-  let minutes = 0;
-  let seconds = 0;
-
-  if (colonPos !== -1) {
-    minutes = parseInt(timeStr.substring(0, colonPos));
-    seconds = parseInt(timeStr.substring(colonPos + 1, timeStr.length + 1));
-  }
-
-  return [seconds, minutes];
-}
-
 function Timer(props) {
   const {className, time} = props;
   const [seconds, setSeconds] = useState(parseTime(time)[0]);
   const [minutes, setMinutes] = useState(parseTime(time)[1]);
   const [timeToDisplay, setTimeToDisplay] = useState(time);
+  const timerStyle = {width: '250px'};
  
   useEffect(() => {
     const interval = setInterval(() => {
@@ -147,14 +147,15 @@ function Timer(props) {
           setSeconds(59)
         }
       }
-      let secondsStr = seconds < 10 ? `0${seconds}` : seconds;
-      setTimeToDisplay(`${minutes}:${secondsStr}`);
+      let secondStr = seconds < 10 ? `0${seconds}` : seconds;
+      let minuteStr = minutes < 10 ? `${minutes}` : minutes;
+      setTimeToDisplay(`${minuteStr}:${secondStr}`);
     }, 1000);
       return () => clearInterval(interval);
   }, [seconds, minutes]);
 
   return (
-    <div className={className}>{timeToDisplay}</div>
+    <div className={className} style={timerStyle}>{timeToDisplay}</div>
   );
 }
 
